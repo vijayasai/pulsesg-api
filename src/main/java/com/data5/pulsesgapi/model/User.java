@@ -1,4 +1,4 @@
-package com.data5.pulsesgapi.document;
+package com.data5.pulsesgapi.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

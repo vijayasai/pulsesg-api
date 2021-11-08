@@ -1,6 +1,6 @@
 package com.data5.pulsesgapi.repository;
 
-import com.data5.pulsesgapi.document.User;
+import com.data5.pulsesgapi.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

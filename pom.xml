@@ -14,6 +14,8 @@
 	<name>pulsesg-api</name>
 	<description>Demo project for Spring Boot with couchbase</description>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
@@ -21,6 +23,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-couchbase</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.couchbase.client/couchbase-transactions -->
+		<!--dependency>
+			<groupId>com.couchbase.client</groupId>
+			<artifactId>couchbase-transactions</artifactId>
+			<version>1.2.2</version>
+		</dependency-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -33,10 +48,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
+
 	</dependencies>
 
 	<build>

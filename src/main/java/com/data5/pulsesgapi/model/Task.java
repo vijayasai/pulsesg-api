@@ -16,8 +16,8 @@ public class Task {
     public String tenantId;
     public List<CatalogMetric> metricIds;
     public String metricType;
-    public List<User> assignedUsers;
-    public List<Role> assignedRoles;
+    public List<String> assignedUsers;
+    public List<String> assignedRoles;
     public String lockedBy;
     public String lockedDate;
     public String expectedDate;
@@ -28,9 +28,9 @@ public class Task {
     public boolean isActive;
     public String approval_status;
     public String approvedBy;
-    public List<User> approvalAssignedUsers;
-    public List<Role> approvalAssignedRoles;
+    public List<String> approvalAssignedUsers;
+    public List<String> approvalAssignedRoles;
     public String approval_comment;
-    public List<User> notifyUsers;
+    public List<String> notifyUsers;
     public String link;
 }

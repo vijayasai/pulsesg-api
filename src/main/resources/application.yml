@@ -1,0 +1,16 @@
+logging:
+  level:
+    org.springframework.data.couchbase.repository.query: DEBUG
+server:
+  port: 9300
+spring:
+  application:
+    name: pulsesg
+  couchbase:
+    bootstrap-hosts: 127.0.0.1
+    bucket:
+      name: pulsesg-sample
+      password: Panja@05
+  data:
+    couchbase:
+      auto-index: true

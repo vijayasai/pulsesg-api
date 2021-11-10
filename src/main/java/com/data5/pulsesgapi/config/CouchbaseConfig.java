@@ -2,7 +2,6 @@ package com.data5.pulsesgapi.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
-import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 
 @Configuration
 public class CouchbaseConfig extends AbstractCouchbaseConfiguration {

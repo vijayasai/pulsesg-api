@@ -1,5 +1,6 @@
 package com.data5.pulsesgapi.controller;
 
+import com.data5.pulsesgapi.exception.TaskExceptionUtil;
 import com.data5.pulsesgapi.helper.ResponseHelper;
 import com.data5.pulsesgapi.model.Task;
 import com.data5.pulsesgapi.model.TaskResponse;
@@ -28,13 +29,13 @@ public class TaskControllerImpl implements TaskController {
      * @throws Exception Exception
      */
     public ResponseEntity<TaskResponse> retrieveTasksListByOrgId(String auth, String orgId) throws Exception {
-        TaskResponse resp;
+        TaskResponse resp = new TaskResponse();
         try {
             List<Task> taskList = taskService.retrieveTasksListByField(orgId);
             resp = responseHelper.getTaskResponse(taskList);
         } catch (Exception e) {
             System.err.println("retrieveTask error: " + e.getMessage());
-            throw e;
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
         } finally {
             System.out.println("retrieveTask : ");
 // future reference
@@ -53,7 +54,7 @@ public class TaskControllerImpl implements TaskController {
             taskService.createNewTask(task);
         } catch (Exception e) {
             System.err.println("createTask error: " + e.getMessage());
-            throw e;
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
         } finally {
             System.out.println("createTask : ");
 // future reference

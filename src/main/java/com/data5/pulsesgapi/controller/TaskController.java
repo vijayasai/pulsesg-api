@@ -1,5 +1,6 @@
 package com.data5.pulsesgapi.controller;
 
+import com.data5.pulsesgapi.exception.TaskException;
 import com.data5.pulsesgapi.model.Task;
 import com.data5.pulsesgapi.model.TaskResponse;
 import io.swagger.annotations.*;
@@ -21,7 +22,7 @@ public interface TaskController {
     })
     @GetMapping("v1/tasks")
     ResponseEntity<TaskResponse> retrieveTasksListByOrgId(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
-                                                          @ApiParam("orgId") @RequestParam(name = "orgId") String orgId) throws Exception;
+                                                          @ApiParam("orgId") @RequestParam(name = "orgId") String orgId) throws TaskException;
 
 
     @ApiOperation(value="CreateTask")
@@ -34,6 +35,6 @@ public interface TaskController {
     })
     @PostMapping("v1/createTask")
     ResponseEntity<Void>  createTask(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
-                           @ApiParam(value = "Task data", required = true) @RequestBody Task task) throws Exception;
+                           @ApiParam(value = "Task data", required = true) @RequestBody Task task) throws TaskException;
 
 }

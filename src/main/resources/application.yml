@@ -4,6 +4,8 @@ logging:
 server:
   port: 9300
 spring:
+  profiles:
+    active: local
   application:
     name: pulsesg
   couchbase:

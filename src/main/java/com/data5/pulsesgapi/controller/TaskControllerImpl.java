@@ -8,18 +8,19 @@ import com.data5.pulsesgapi.model.TaskResponse;
 import com.data5.pulsesgapi.service.TaskService;
 import com.data5.pulsesgapi.util.Util;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @AllArgsConstructor
 public class TaskControllerImpl implements TaskController {
 
+    private static final Logger LOGGER =  LoggerFactory.getLogger(TaskControllerImpl.class);
     private TaskService taskService;
     private ResponseHelper responseHelper;
 
@@ -29,7 +30,12 @@ public class TaskControllerImpl implements TaskController {
      * @return ResponseEntity<TaskResponse>
      * @throws TaskException Exception
      */
+    //@HystrixCommand(commandKey = "", threadPoolKey = "", fallbackMethod = "handleRetrieveTasksListByOrgId")
     public ResponseEntity<TaskResponse> retrieveTasksListByOrgId(String auth, String orgId) throws TaskException {
+        LOGGER.info("**********info");
+        LOGGER.debug("**********debug");
+        LOGGER.warn("**********warn");
+        LOGGER.error("**********error");
         TaskResponse resp = new TaskResponse();
         try {
             List<Task> taskList = taskService.retrieveTasksListByField(orgId);

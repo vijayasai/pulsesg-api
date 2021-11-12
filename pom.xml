@@ -29,11 +29,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.couchbase.client/couchbase-transactions -->
-        <!--dependency>
+        <dependency>
             <groupId>com.couchbase.client</groupId>
             <artifactId>couchbase-transactions</artifactId>
             <version>1.2.2</version>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -51,10 +51,13 @@
             <optional>true</optional>
         </dependency>
 
-<!--        <dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-hystrix -->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>-->
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>2.2.9.RELEASE</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -63,7 +66,6 @@
         </dependency>
 
     </dependencies>
-<!--
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -74,7 +76,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>-->
+    </dependencyManagement>
 
     <build>
         <plugins>

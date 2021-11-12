@@ -32,20 +32,15 @@ public class TaskControllerImpl implements TaskController {
      */
     //@HystrixCommand(commandKey = "", threadPoolKey = "", fallbackMethod = "handleRetrieveTasksListByOrgId")
     public ResponseEntity<TaskResponse> retrieveTasksListByOrgId(String auth, String orgId) throws TaskException {
-        LOGGER.info("**********info");
-        LOGGER.debug("**********debug");
-        LOGGER.warn("**********warn");
-        LOGGER.error("**********error");
+        LOGGER.info(" ** Start of retrieveTasksListByOrgId orgId {}", orgId);
+
         TaskResponse resp = new TaskResponse();
         try {
-            List<Task> taskList = taskService.retrieveTasksListByField(orgId);
+            List<Task> taskList = taskService.retrieveTasksListByFieldUsingTemplate(orgId);
             resp = responseHelper.getTaskResponse(taskList);
         } catch (Exception e) {
-            System.err.println("retrieveTask error: " + e.getMessage());
+            LOGGER.error("retrieveTask error: {}", e.getMessage());
             TaskExceptionUtil.throwAndLogTaskExceptions(e);
-        } finally {
-            System.out.println("retrieveTask : ");
-// future reference
         }
         return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
     }
@@ -57,14 +52,12 @@ public class TaskControllerImpl implements TaskController {
      * @throws TaskException Exception
      */
     public ResponseEntity<Void> createTask(String auth, Task task) throws TaskException {
+        LOGGER.info(" ** Start of createTask ");
         try {
             taskService.createNewTask(task);
         } catch (Exception e) {
-            System.err.println("createTask error: " + e.getMessage());
+            LOGGER.error("createTask error: {}", e.getMessage());
             TaskExceptionUtil.throwAndLogTaskExceptions(e);
-        } finally {
-            System.out.println("createTask : ");
-// future reference
         }
         return new ResponseEntity<>(Util.getSuccessResponseHeaders(), HttpStatus.OK);
     }

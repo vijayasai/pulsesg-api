@@ -36,7 +36,7 @@ public class TaskControllerImpl implements TaskController {
 
         TaskResponse resp = new TaskResponse();
         try {
-            List<Task> taskList = taskService.retrieveTasksListByFieldUsingTemplate(orgId);
+            List<Task> taskList = taskService.retrieveTasksListByOrgId(orgId);
             resp = responseHelper.getTaskResponse(taskList);
         } catch (Exception e) {
             LOGGER.error("retrieveTask error: {}", e.getMessage());

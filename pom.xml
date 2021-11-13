@@ -29,11 +29,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.couchbase.client/couchbase-transactions -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.couchbase.client</groupId>
             <artifactId>couchbase-transactions</artifactId>
             <version>1.2.2</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -64,19 +64,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-      <!--  <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>-->
 
     </dependencies>
     <dependencyManagement>

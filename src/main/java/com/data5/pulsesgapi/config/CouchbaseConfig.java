@@ -1,5 +1,6 @@
 package com.data5.pulsesgapi.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
@@ -8,14 +9,18 @@ import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepos
 @EnableCouchbaseRepositories(basePackages = {"com.data5.pulsesgapi.repository"})
 public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
 
-    //@Value("${spring.couchbase.bootstrap-hosts}")
-    private String hosts ="52.91.169.220";
+    @Value("${spring.couchbase.bootstrap-hosts}")
+    private String hosts;
 
-    //@Value("${spring.couchbase.bucket.name}")
-    private String bucketName ="generatedata";
+    @Value("${spring.couchbase.bucket.name}")
+    private String bucketName;
 
-    //@Value("${spring.couchbase.bucket.password}")
-    private String password ="Generated123!";
+    @Value("${spring.couchbase.bucket.password}")
+    private String password;
+
+    @Value("${couchDB.login.userName}")
+    private String loginUserName;
+
 
     @Override
     public String getConnectionString() {
@@ -24,7 +29,7 @@ public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
 
     @Override
     public String getUserName() {
-        return "generated";// "Administrator";
+       return loginUserName;
     }
 
     @Override

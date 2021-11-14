@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.InstantSerializer;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
@@ -26,7 +24,7 @@ import static org.springframework.data.couchbase.core.mapping.id.GenerationStrat
 @Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Task {
-    public static final String PREFIX = "standard";
+    public static final String PREFIX = "Task";
 
     @SuppressWarnings("unused")
     @IdPrefix

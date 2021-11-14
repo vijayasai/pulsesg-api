@@ -9,10 +9,17 @@ spring:
   application:
     name: pulsesg
   couchbase:
-    bootstrap-hosts: 127.0.0.1
+    bootstrap-hosts: 52.91.169.220
     bucket:
-      name: pulsesg-sample
-      password: Panja@05
+      name: generatedata
+      password: Generated123!
   data:
     couchbase:
       auto-index: true
+validations:
+  task:
+    date-pattern: yyyy-MM-dd HH:mm:ss
+couchDB:
+  login:
+    userName: generated
+

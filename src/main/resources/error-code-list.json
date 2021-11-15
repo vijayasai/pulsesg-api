@@ -8,5 +8,10 @@
     "code": "1000",
     "status": 500,
     "message": "Unknown exception occurred"
+  },
+  "1002": {
+    "code": "1002",
+    "status": 503,
+    "message": "In Degrade Mode"
   }
 }

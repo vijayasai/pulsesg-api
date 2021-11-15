@@ -6,7 +6,8 @@ import java.util.stream.Stream;
 public enum TaskErrorInfo {
 
     OK(200, "0", "Success"),
-    UNKNOWN_EXCEPTION(500, "1000", "Unknown exception occurred.");
+    UNKNOWN_EXCEPTION(500, "1000", "Unknown exception occurred."),
+    DEGRADED_MODE(503, "1002", "In Degrade Mode");
 
     private TaskErrorInfo(int statusCode, String errorCode, String errorMessage){
         this.errorCode = errorCode;

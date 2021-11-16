@@ -1,6 +1,7 @@
 package com.data5.pulsesgapi.controller;
 
 import com.data5.pulsesgapi.exception.TaskException;
+import com.data5.pulsesgapi.model.MultiTask;
 import com.data5.pulsesgapi.model.Task;
 import com.data5.pulsesgapi.model.TaskResponse;
 import io.swagger.annotations.*;
@@ -36,5 +37,17 @@ public interface TaskController {
     @PostMapping("v1/createTask")
     ResponseEntity<Void>  createTask(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
                            @ApiParam(value = "Task data", required = true) @RequestBody Task task) throws TaskException;
+
+    @ApiOperation(value="CreateMultipleTasks")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name="Authorization", required = true, dataType = "string", value="descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code=200, message = "-0: Success")
+    })
+    @PostMapping("v1/createMultipleTasks")
+    ResponseEntity<Void>  createMultipleTasks(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                     @ApiParam(value = "Task data", required = true) @RequestBody MultiTask multiTask) throws TaskException;
 
 }

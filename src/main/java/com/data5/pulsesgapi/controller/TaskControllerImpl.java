@@ -4,6 +4,7 @@ import com.data5.pulsesgapi.exception.TaskException;
 import com.data5.pulsesgapi.exception.TaskExceptionUtil;
 import com.data5.pulsesgapi.helper.ResponseHelper;
 import com.data5.pulsesgapi.helper.TaskHelper;
+import com.data5.pulsesgapi.model.MultiTask;
 import com.data5.pulsesgapi.model.Task;
 import com.data5.pulsesgapi.model.TaskResponse;
 import com.data5.pulsesgapi.service.TaskService;
@@ -58,6 +59,23 @@ public class TaskControllerImpl implements TaskController {
             taskHelper.createNewTask(task);
         } catch (Exception e) {
             LOGGER.error("createTask error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     * @param auth AuthToken
+     * @param multiTask MultiTask
+     * @return void
+     * @throws TaskException Exception
+     */
+    public ResponseEntity<Void> createMultipleTasks(String auth, MultiTask multiTask) throws TaskException {
+        LOGGER.info(" ** Start of createMultipleTasks ");
+        try {
+            taskHelper.createMultipleNewTasks(multiTask);
+        } catch (Exception e) {
+            LOGGER.error("createMultipleTasks error: {}", e.getMessage());
             TaskExceptionUtil.throwAndLogTaskExceptions(e);
         }
         return new ResponseEntity<>(Util.getSuccessResponseHeaders(), HttpStatus.OK);

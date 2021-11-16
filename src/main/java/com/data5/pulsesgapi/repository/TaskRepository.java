@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends CouchbaseRepository<Task, String> {
 
-    List<Task> findAllByOrgIdsLike(String orgId);
+    List<Task> findAllByOrgIdLike(String orgId);
 
 }

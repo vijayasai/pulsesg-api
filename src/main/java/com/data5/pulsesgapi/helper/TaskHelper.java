@@ -1,6 +1,7 @@
 package com.data5.pulsesgapi.helper;
 
 import com.data5.pulsesgapi.exception.TaskException;
+import com.data5.pulsesgapi.model.MultiTask;
 import com.data5.pulsesgapi.model.Task;
 import com.data5.pulsesgapi.service.TaskService;
 import lombok.AllArgsConstructor;
@@ -21,21 +22,27 @@ public class TaskHelper {
      * @throws TaskException exception
      */
     public void createNewTask(Task task) throws TaskException {
-        List<String> tempOrgIdList = task.getOrgIds();
-        List<String> tempMetricIdList = task.getMetricIds();
+        taskService.saveTask(task);
+    }
+
+    /**
+     *
+     * @param multiTask
+     * @throws TaskException
+     */
+    public void createMultipleNewTasks(MultiTask multiTask) throws TaskException {
+        List<String> tempMetricIds = multiTask.getMetricIds();
+        List<String> tempOrgIds = multiTask.getOrgIds();
         List<Task> tasks = new ArrayList<>();
-        for (String orgId : tempOrgIdList) {
-            for (String metricId : tempMetricIdList) {
+        for (String orgId : tempOrgIds) {
+            for (String metricId : tempMetricIds) {
+                Task task = new Task();
                 task.setMetricIds(Arrays.asList(metricId));
-                task.setOrgIds(Arrays.asList(orgId));
+                task.setOrgId(orgId);
                 tasks.add(task);
             }
         }
-        if (tasks.size() > 1) {
-            taskService.saveMultipleTasks(tasks);
-        } else {
-            taskService.saveTask(task);
-        }
+        taskService.saveMultipleTasks(tasks);
     }
 
     /**

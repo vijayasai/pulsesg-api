@@ -20,7 +20,7 @@ public class TaskService {
     CouchbaseTemplate couchbaseTemplate;
 
     public List<Task> retrieveTasksByOrgId(String orgId) {
-        return taskRepository.findAllByOrgIdsLike("%" + orgId);
+        return taskRepository.findAllByOrgIdLike("%" + orgId);
     }
 
     public void saveTask(Task task) {

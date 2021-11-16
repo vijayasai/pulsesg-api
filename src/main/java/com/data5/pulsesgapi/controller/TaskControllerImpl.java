@@ -3,6 +3,7 @@ package com.data5.pulsesgapi.controller;
 import com.data5.pulsesgapi.exception.TaskException;
 import com.data5.pulsesgapi.exception.TaskExceptionUtil;
 import com.data5.pulsesgapi.helper.ResponseHelper;
+import com.data5.pulsesgapi.helper.TaskHelper;
 import com.data5.pulsesgapi.model.Task;
 import com.data5.pulsesgapi.model.TaskResponse;
 import com.data5.pulsesgapi.service.TaskService;
@@ -21,7 +22,7 @@ import java.util.List;
 public class TaskControllerImpl implements TaskController {
 
     private static final Logger LOGGER =  LoggerFactory.getLogger(TaskControllerImpl.class);
-    private TaskService taskService;
+    private TaskHelper taskHelper;
     private ResponseHelper responseHelper;
 
     /**
@@ -30,13 +31,13 @@ public class TaskControllerImpl implements TaskController {
      * @return ResponseEntity<TaskResponse>
      * @throws TaskException Exception
      */
-    //@HystrixCommand(commandKey = "", threadPoolKey = "", fallbackMethod = "handleRetrieveTasksListByOrgId")
+    //@HystrixCommand(commandKey = "taskService-addNewTask", threadPoolKey = "taskService-addNewTask", fallbackMethod = "handleRetrieveTasksListByOrgId")
     public ResponseEntity<TaskResponse> retrieveTasksListByOrgId(String auth, String orgId) throws TaskException {
         LOGGER.info(" ** Start of retrieveTasksListByOrgId orgId {}", orgId);
 
         TaskResponse resp = new TaskResponse();
         try {
-            List<Task> taskList = taskService.retrieveTasksListByOrgId(orgId);
+            List<Task> taskList = taskHelper.retrieveTasksByOrgId(orgId);
             resp = responseHelper.getTaskResponse(taskList);
         } catch (Exception e) {
             LOGGER.error("retrieveTask error: {}", e.getMessage());
@@ -54,7 +55,7 @@ public class TaskControllerImpl implements TaskController {
     public ResponseEntity<Void> createTask(String auth, Task task) throws TaskException {
         LOGGER.info(" ** Start of createTask ");
         try {
-            taskService.createNewTask(task);
+            taskHelper.createNewTask(task);
         } catch (Exception e) {
             LOGGER.error("createTask error: {}", e.getMessage());
             TaskExceptionUtil.throwAndLogTaskExceptions(e);

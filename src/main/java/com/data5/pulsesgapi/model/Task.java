@@ -38,7 +38,7 @@ public class Task {
     public String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYYMM,d")
     public int cycleId;
-    public String orgId;
+    public List<String> orgIds;
     public String tenantId;
     public List<String> metricIds;
     public MetricTypeEnum metricType;

@@ -1,14 +1,13 @@
 package com.data5.pulsesgapi.controller;
 
-import com.data5.pulsesgapi.exception.TaskException;
-import com.data5.pulsesgapi.exception.TaskExceptionUtil;
-import com.data5.pulsesgapi.helper.ResponseHelper;
-import com.data5.pulsesgapi.helper.TaskHelper;
-import com.data5.pulsesgapi.model.MultiTask;
-import com.data5.pulsesgapi.model.Task;
-import com.data5.pulsesgapi.model.TaskResponse;
-import com.data5.pulsesgapi.service.TaskService;
-import com.data5.pulsesgapi.util.Util;
+import com.pulsesg.platform.core.task.exception.TaskException;
+import com.pulsesg.platform.core.task.exception.TaskExceptionUtil;
+import com.pulsesg.platform.core.task.helper.ResponseHelper;
+import com.pulsesg.platform.core.task.helper.TaskHelper;
+import com.pulsesg.platform.core.task.model.MultiTask;
+import com.pulsesg.platform.core.task.model.Task;
+import com.pulsesg.platform.core.task.model.TaskResponse;
+import com.pulsesg.platform.core.task.util.Util;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author Vijayasai Kesanupalli
+ */
 @RestController
 @AllArgsConstructor
 public class TaskControllerImpl implements TaskController {

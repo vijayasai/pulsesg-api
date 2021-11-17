@@ -1,9 +1,12 @@
-package com.data5.pulsesgapi.exception;
+package com.pulsesg.platform.core.task.exception;
 
 import org.springframework.http.HttpStatus;
 
 import java.util.Objects;
 
+/**
+ * @author Vijayasai Kesanupalli
+ */
 public class TaskErrorProperty {
 
     private String code;

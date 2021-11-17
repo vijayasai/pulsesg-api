@@ -1,7 +1,7 @@
 package com.data5.pulsesgapi.service;
 
-import com.data5.pulsesgapi.model.Task;
-import com.data5.pulsesgapi.repository.TaskRepository;
+import com.pulsesg.platform.core.task.model.Task;
+import com.pulsesg.platform.core.task.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+/**
+ * @author Vijayasai Kesanupalli
+ */
 @Service
 @AllArgsConstructor
 public class TaskService {

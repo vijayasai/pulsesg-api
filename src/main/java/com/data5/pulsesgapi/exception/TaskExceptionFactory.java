@@ -1,12 +1,15 @@
-package com.data5.pulsesgapi.exception;
+package com.pulsesg.platform.core.task.exception;
 
-import com.data5.pulsesgapi.util.Util;
+import com.pulsesg.platform.core.task.util.Util;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 
+/**
+ * @author Vijayasai Kesanupalli
+ */
 @Component
 @AllArgsConstructor
 public class TaskExceptionFactory {

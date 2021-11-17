@@ -1,4 +1,4 @@
-package com.data5.pulsesgapi.exception;
+package com.pulsesg.platform.core.task.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
+/**
+ * @author Vijayasai Kesanupalli
+ */
 
 @Component
 public class TaskExceptionUtil extends ExceptionUtils {

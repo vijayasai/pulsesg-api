@@ -1,7 +1,10 @@
-package com.data5.pulsesgapi.exception;
+package com.pulsesg.platform.core.task.exception;
 
 import java.io.Serializable;
 
+/**
+ * @author Vijayasai Kesanupalli
+ */
 public class TaskException extends Exception implements Serializable {
 
     private TaskErrorProperty taskErrorProperty;

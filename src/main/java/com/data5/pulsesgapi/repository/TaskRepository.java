@@ -1,11 +1,15 @@
 package com.data5.pulsesgapi.repository;
 
-import com.data5.pulsesgapi.model.Task;
+
+import com.pulsesg.platform.core.task.model.Task;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author Vijayasai Kesanupalli
+ */
 @Repository
 public interface TaskRepository extends CouchbaseRepository<Task, String> {
 

@@ -1,7 +1,11 @@
-package com.data5.pulsesgapi.exception;
+package com.pulsesg.platform.core.task.exception;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+
+/**
+ * @author Vijayasai Kesanupalli
+ */
 
 public enum TaskErrorInfo {
 

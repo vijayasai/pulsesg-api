@@ -1,19 +1,27 @@
-package com.data5.pulsesgapi.helper;
 
-import com.data5.pulsesgapi.exception.TaskException;
-import com.data5.pulsesgapi.model.MultiTask;
-import com.data5.pulsesgapi.model.Task;
-import com.data5.pulsesgapi.service.TaskService;
+import com.pulsesg.platform.core.task.exception.TaskException;
+import com.pulsesg.platform.core.task.model.MultiTask;
+import com.pulsesg.platform.core.task.model.Task;
+import com.pulsesg.platform.core.task.service.TaskService;
+import com.pulsesg.platform.core.task.util.Util;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Vijayasai Kesanupalli
+ */
+
 @Component
 @AllArgsConstructor
 public class TaskHelper {
+
+    private static final Logger LOGGER =  LoggerFactory.getLogger(TaskHelper.class);
 
     private TaskService taskService;
 
@@ -22,6 +30,10 @@ public class TaskHelper {
      * @throws TaskException exception
      */
     public void createNewTask(Task task) throws TaskException {
+        task.setCreatedDate(Util.getCurrentDataTimeInstant());
+        if(task.getCycleId() == 0){
+            task.setCycleId(Integer.parseInt(Util.getCurrentYYYYMMString()));
+        }
         taskService.saveTask(task);
     }
 
@@ -39,6 +51,12 @@ public class TaskHelper {
                 Task task = new Task();
                 task.setMetricIds(Arrays.asList(metricId));
                 task.setOrgId(orgId);
+                task.setTenantId(multiTask.getTenantId());
+                task.setMetricType(multiTask.getMetricType());
+                task.set_type("OpenTask");
+                task.setCreatedBy("Vijay");
+                task.setCreatedDate(Util.getCurrentDataTimeInstant());
+                task.setCycleId(Integer.parseInt(Util.getCurrentYYYYMMString()));
                 tasks.add(task);
             }
         }
@@ -53,4 +71,6 @@ public class TaskHelper {
     public List<Task> retrieveTasksByOrgId(String orgId) throws TaskException {
         return taskService.retrieveTasksByOrgId(orgId);
     }
+
+
 }

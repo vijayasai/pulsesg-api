@@ -1,14 +1,6 @@
-main:
-  business:
-    uri: /v1/task
-logging:
-  level:
-    org.springframework.data.couchbase.repository.query: DEBUG
 server:
   port: 9300
 spring:
-  profiles:
-    active: local
   application:
     name: pulsesg-task-service
   couchbase:
@@ -19,37 +11,7 @@ spring:
   data:
     couchbase:
       auto-index: true
-validations:
-  task:
-    date-pattern: yyyy-MM-dd HH:mm:ss
 couchDB:
   login:
     userName: generated
 LOGGING_ROOT: C:/workspace/logs/pulsesg/server
-# hystrix changes
-hystrix:
-  command:
-    taskService-addNewTask:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 30000
-      fallback:
-        isolation:
-          semaphore:
-            maxConcurrentRequests: 10
-      cicuitBreaker:
-        enabled: true
-        requestVolumeThreshold: 30
-        sleepWindowInMilliseconds: 5000
-        errorThresholdPercentage: 90
-        forceOpen: false
-  threadpool:
-    taskService-addNewTask:
-      coreSize: 2
-      maximumSize: 5
-      queueSizeRejectionThreshold: 5
-      allowMaximumSizeToDivergeFromCoreSize: true
-
-
-

@@ -1,0 +1,43 @@
+logging:
+  level:
+    org.springframework.data.couchbase.repository.query: DEBUG
+
+main:
+  business:
+    uri: /v1/task
+
+validations:
+  task:
+    date-pattern: yyyy-MM-dd HH:mm:ss
+
+# hystrix changes
+hystrix:
+  command:
+    taskService-addNewTask:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 10
+      cicuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 30
+        sleepWindowInMilliseconds: 5000
+        errorThresholdPercentage: 90
+        forceOpen: false
+  threadpool:
+    taskService-addNewTask:
+      coreSize: 2
+      maximumSize: 5
+      queueSizeRejectionThreshold: 5
+      allowMaximumSizeToDivergeFromCoreSize: true
+
+sample:
+  test:
+    test2: vijay
+
+
+

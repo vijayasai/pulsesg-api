@@ -4,7 +4,9 @@ import com.pulsesg.platform.core.task.exception.TaskException;
 import com.pulsesg.platform.core.task.exception.TaskExceptionUtil;
 import com.pulsesg.platform.core.task.helper.ResponseHelper;
 import com.pulsesg.platform.core.task.helper.TaskHelper;
-import com.pulsesg.platform.core.task.model.*;
+import com.pulsesg.platform.core.task.model.MultiTask;
+import com.pulsesg.platform.core.task.model.Task;
+import com.pulsesg.platform.core.task.model.TaskResponse;
 import com.pulsesg.platform.core.task.util.Util;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -81,49 +83,207 @@ public class TaskControllerImpl implements TaskController {
         return new ResponseEntity<>(Util.getSuccessResponseHeaders(), HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update approve status of Task
+     */
     @Override
-    public ResponseEntity<TaskDashboard> retrieveDashboard(String auth) throws TaskException {
+    public ResponseEntity<Task> updateApproveStatusById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateApproveStatusById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateApproveOrRejectTaskById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateApproveStatusById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update reject status of Task
+     */
+    @Override
+    public ResponseEntity<Task> updateRejectStatusById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateRejectStatusById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateApproveOrRejectTaskById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateRejectStatusById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update Lock status of Task
+     *
+     */
+    @Override
+    public ResponseEntity<Task> updateLockStatusById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateRejectStatusById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateLockOrUnLockStatusById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateRejectStatusById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update UnLock status of Task
+     *
+     */
+    @Override
+    public ResponseEntity<Task> updateUnLockStatusById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateUnLockStatusById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateLockOrUnLockStatusById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateUnLockStatusById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update status of Task
+     */
+    @Override
+    public ResponseEntity<Task> updateStatusById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateStatusById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateStatusById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateStatusById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update Active status of Task
+     */
+    @Override
+    public ResponseEntity<Task> updateActiveStatusById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateActiveStatusById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateActiveStatusById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateActiveStatusById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update Assign users of Task
+     */
+    @Override
+    public ResponseEntity<Task> updateAssignUsersById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateAssignUsersById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateAssignOrRemoveUserById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateAssignUsersById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param auth AuthToken
+     * @param id String
+     * @param task Task
+     * @return ResponseEntity<Task> Task
+     * @throws TaskException Exception
+     *
+     * below method is to update Remove users of Task
+     */
+    @Override
+    public ResponseEntity<Task> updateRemoveUsersById(String auth, String id, Task task) throws TaskException {
+        LOGGER.info(" ** Start of updateRemoveUsersById ");
+        Task resp = new Task();
+        try {
+            resp = taskHelper.updateAssignOrRemoveUserById(id, task);
+        } catch (Exception e) {
+            LOGGER.error("updateRemoveUsersById error: {}", e.getMessage());
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
+        }
+        return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Task> retrieveDashboard(String auth) throws TaskException {
         return null;
     }
 
     @Override
-    public ResponseEntity<TaskInbox> retrieveTaskInbox(String auth) throws TaskException {
+    public ResponseEntity<Task> retrieveTaskInbox(String auth) throws TaskException {
         return null;
     }
 
     @Override
-    public ResponseEntity<TaskAudit> retrieveAudit(String auth) throws TaskException {
+    public ResponseEntity<Task> retrieveAudit(String auth) throws TaskException {
         return null;
     }
 
-    @Override
-    public ResponseEntity<TaskAssignUsers> retrieveAssignUsers(String auth) throws TaskException {
-        return null;
-    }
 
-    @Override
-    public ResponseEntity<TaskAssignmentUsers> retrieveAssignmentUsers(String auth) throws TaskException {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Task> retrieveApproveTasks(String auth) throws TaskException {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Task> retrieveRejectTasks(String auth) throws TaskException {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Task> retrieveLockTasks(String auth) throws TaskException {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Task> retrieveUnlockTasks(String auth) throws TaskException {
-        return null;
-    }
 
 }

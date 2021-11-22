@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("${main.business.uri}")
 public interface TaskController {
 
+    // Get Tasks By ORGID
+
     @ApiOperation(value = "getTasksList")
     @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
@@ -27,6 +29,7 @@ public interface TaskController {
     ResponseEntity<TaskResponse> retrieveTasksListByOrgId(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
                                                           @ApiParam("orgId") @RequestParam(name = "orgId") String orgId) throws TaskException;
 
+    // CreateTask
 
     @ApiOperation(value="CreateTask")
     @ApiImplicitParams(value = {
@@ -39,6 +42,8 @@ public interface TaskController {
     @PostMapping("/createTask")
     ResponseEntity<Void>  createTask(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
                            @ApiParam(value = "Task data", required = true) @RequestBody Task task) throws TaskException;
+
+    // CreateMultipleTasks
 
     @ApiOperation(value="CreateMultipleTasks")
     @ApiImplicitParams(value = {
@@ -53,6 +58,135 @@ public interface TaskController {
                                      @ApiParam(value = "Task data", required = true) @RequestBody MultiTask multiTask) throws TaskException;
 
 
+
+    // Assign Users
+
+    @ApiOperation(value = "updateAssignUserTask")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/assignUser/{_id}")
+    ResponseEntity<Task> updateAssignUsersById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                                 @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                                 @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+
+    // remove Users
+
+    @ApiOperation(value = "updateRemoveUserTask")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/removeUser/{_id}")
+    ResponseEntity<Task> updateRemoveUsersById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                               @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                               @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+    // Approve Tasks
+
+    @ApiOperation(value = "updateApproveTasks")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/approve/{_id}")
+    ResponseEntity<Task> updateApproveStatusById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                               @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                               @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+    // Reject Tasks
+
+    @ApiOperation(value = "updateRejectTasks")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/reject/{_id}")
+    ResponseEntity<Task> updateRejectStatusById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                                    @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                                    @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+    // Lock Tasks
+
+    @ApiOperation(value = "updateLockTasks")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/lock/{_id}")
+    ResponseEntity<Task> updateLockStatusById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                               @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                               @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+    // UnLock Tasks
+
+    @ApiOperation(value = "updateUnlockTasks")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/unlock/{_id}")
+    ResponseEntity<Task> updateUnLockStatusById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                              @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                              @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+    // Update Status
+
+    @ApiOperation(value = "updateStatusTasks")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/status/{_id}")
+    ResponseEntity<Task> updateStatusById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                                @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                                @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
+
+    // Update ActiveStatus Task
+
+    @ApiOperation(value = "updateActiveStatusTask")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
+                    paramType = "header")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "-0: Success", response = Task.class)
+    })
+    @PutMapping("/activeStatus/{_id}")
+    ResponseEntity<Task> updateActiveStatusById(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
+                                          @ApiParam("_id") @PathVariable(value = "_id") String id,
+                                          @ApiParam(name="Task", required = true) @RequestBody Task task) throws TaskException;
+
     // Dashboard
 
     @ApiOperation(value = "getDashboard")
@@ -64,7 +198,7 @@ public interface TaskController {
             @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
     })
     @GetMapping("/dashboard")
-    ResponseEntity<TaskDashboard> retrieveDashboard(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
+    ResponseEntity<Task> retrieveDashboard(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
 
 
     // Inbox
@@ -78,7 +212,7 @@ public interface TaskController {
             @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
     })
     @GetMapping("/inbox")
-    ResponseEntity<TaskInbox> retrieveTaskInbox(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
+    ResponseEntity<Task> retrieveTaskInbox(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
 
 
     // Audit
@@ -92,91 +226,7 @@ public interface TaskController {
             @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
     })
     @GetMapping("/audit")
-    ResponseEntity<TaskAudit> retrieveAudit(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
-
-    // Assign Users
-
-    @ApiOperation(value = "getAssignUsers")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
-                    paramType = "header")
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
-    })
-    @GetMapping("/assignUsers")
-    ResponseEntity<TaskAssignUsers> retrieveAssignUsers(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
-
-
-
-    // Assignment Users
-
-    @ApiOperation(value = "getAssignmentUsers")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
-                    paramType = "header")
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
-    })
-    @GetMapping("/assignmentUsers")
-    ResponseEntity<TaskAssignmentUsers> retrieveAssignmentUsers(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
-
-
-    // Approve Tasks
-
-    @ApiOperation(value = "getApproveTasks")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
-                    paramType = "header")
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
-    })
-    @GetMapping("/approve")
-    ResponseEntity<Task> retrieveApproveTasks(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
-
-
-    // Reject Tasks
-
-    @ApiOperation(value = "getRejectTasks")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
-                    paramType = "header")
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
-    })
-    @GetMapping("/reject")
-    ResponseEntity<Task> retrieveRejectTasks(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
-
-
-    // Lock Tasks
-
-    @ApiOperation(value = "getLockTasks")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
-                    paramType = "header")
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
-    })
-    @GetMapping("/lock")
-    ResponseEntity<Task> retrieveLockTasks(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
-
-
-    // UnLock Tasks
-
-    @ApiOperation(value = "getUnLockTasks")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", value = "descr",
-                    paramType = "header")
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "-0: Success", response = TaskResponse.class)
-    })
-    @GetMapping("/unlock")
-    ResponseEntity<Task> retrieveUnlockTasks(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
+    ResponseEntity<Task> retrieveAudit(@ApiParam("Auth") @RequestHeader("Authorization") String auth) throws TaskException;
 
 
 }

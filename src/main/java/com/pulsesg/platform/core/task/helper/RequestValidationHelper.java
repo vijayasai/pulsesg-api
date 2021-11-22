@@ -1,6 +1,5 @@
 package com.pulsesg.platform.core.task.helper;
 
-import com.pulsesg.platform.core.task.service.TaskService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class TaskAssignmentUsersHelper {
-
-    private static final Logger LOGGER =  LoggerFactory.getLogger(TaskAssignmentUsersHelper.class);
-
-    private TaskService taskService;
+public class RequestValidationHelper {
+    private static final Logger LOGGER =  LoggerFactory.getLogger(RequestValidationHelper.class);
 
 
 }

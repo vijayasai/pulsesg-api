@@ -21,9 +21,12 @@ public class RequestHeaderInfoFilter extends GenericFilterBean {
             String userId = ((HttpServletRequest) request).getHeader("UserId");
             String jsessionId = null;
             LogUtil.clearContext();
+            filterChain.doFilter(request, response);
 
         } catch (Exception e) {
-
+System.err.println("here in dofilter exception : "+ e.getMessage());
+        } finally {
+            LogUtil.clearContext();
         }
     }
 }

@@ -4,14 +4,14 @@ spring:
   application:
     name: pulsesg-task-service
   couchbase:
-    bootstrap-hosts: 52.91.169.220
+    bootstrap-hosts: 127.0.0.1
     bucket:
       name: generatedata
-      password: Generated123!
+      password: Panja@05
   data:
     couchbase:
       auto-index: true
 couchDB:
   login:
-    userName: generated
+    userName: Administrator
 LOGGING_ROOT: C:/workspace/logs/pulsesg/server

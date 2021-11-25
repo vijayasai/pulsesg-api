@@ -215,7 +215,7 @@ public class TaskControllerImpl implements TaskController {
         LOGGER.info(" ** Start of updateActiveStatusById ");
         Task resp = new Task();
         try {
-            resp = taskHelper.updateActiveStatusById(id, task);
+            resp = taskHelper.updateIsActiveById(id, task);
         } catch (Exception e) {
             LOGGER.error("updateActiveStatusById error: {}", e.getMessage());
             TaskExceptionUtil.throwAndLogTaskExceptions(e);
@@ -270,17 +270,17 @@ public class TaskControllerImpl implements TaskController {
     }
 
     @Override
-    public ResponseEntity<Task> retrieveDashboard(String auth) throws TaskException {
+    public ResponseEntity<Task> retrieveDashboard(String auth) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Task> retrieveTaskInbox(String auth) throws TaskException {
+    public ResponseEntity<Task> retrieveTaskInbox(String auth) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Task> retrieveAudit(String auth) throws TaskException {
+    public ResponseEntity<Task> retrieveAudit(String auth) {
         return null;
     }
 

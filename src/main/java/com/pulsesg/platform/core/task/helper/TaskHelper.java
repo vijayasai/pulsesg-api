@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,19 +22,17 @@ import java.util.List;
 public class TaskHelper {
 
     private static final Logger LOGGER =  LoggerFactory.getLogger(TaskHelper.class);
-    private CommonHelper commonHelper;
     private TaskService taskService;
 
     /**
      * @param task Task
-     * @throws TaskException exception
      *
      * below method to create task
      */
-    public void createNewTask(Task task) throws TaskException {
+    public void createNewTask(Task task) {
         task.setCreatedDate(Util.getCurrentDataTimeInstant());
         task.setUpdatedDate(Util.getCurrentDataTimeInstant());
-        task.setUpdatedBy("Vaijay");
+        task.setUpdatedBy("Vijay");
         if(task.getCycleId() == 0){
             task.setCycleId(Integer.parseInt(Util.getCurrentYYYYMMString()));
         }
@@ -44,19 +41,18 @@ public class TaskHelper {
 
     /**
      *
-     * @param multiTask
-     * @throws TaskException
+     * @param multiTask MultiTask
      *
      * below method to create multiple tasks
      */
-    public void createMultipleNewTasks(MultiTask multiTask) throws TaskException {
+    public void createMultipleNewTasks(MultiTask multiTask) {
         List<String> tempMetricIds = multiTask.getMetricIds();
         List<String> tempOrgIds = multiTask.getOrgIds();
         List<Task> tasks = new ArrayList<>();
         for (String orgId : tempOrgIds) {
             for (String metricId : tempMetricIds) {
                 Task task = new Task();
-                task.setMetricIds(Arrays.asList(metricId));
+                task.setMetricIds(List.of(metricId));
                 task.setOrgId(orgId);
                 task.setTenantId(multiTask.getTenantId());
                 task.setMetricType(multiTask.getMetricType());
@@ -90,18 +86,8 @@ public class TaskHelper {
      *
      * below method to update Approve status of Task
      */
-    public Task updateApproveOrRejectTaskById(String id, Task task) throws TaskException {
-        Task taskById = taskService.retrieveTaskBydId(id);
-        if(taskById != null){
-            taskById.setApproval_comment(task.getApproval_comment());
-            taskById.setApproval_status(task.getApproval_status());
-            taskById.setApprovedBy(task.getApprovedBy());
-            taskById.setApprovalAssignedRoles(task.getApprovalAssignedRoles());
-            taskById.setApprovalAssignedUsers(task.getApprovalAssignedUsers());
-            taskById = commonHelper.updateCommonTaskFields(taskById, task);
-            taskService.saveTask(taskById);
-        }
-        return taskById;
+    public Task updateApproveOrRejectTaskById(String id,  Task task) throws TaskException {
+        return taskService.updateApproveTaskById(id, task.getApproval_comment(), task.getUpdatedBy());
     }
 
     /**
@@ -114,14 +100,7 @@ public class TaskHelper {
      * below method to update Lock or unlock status of Task
      */
     public Task updateLockOrUnLockStatusById(String id, Task task) throws TaskException {
-        Task taskById = taskService.retrieveTaskBydId(id);
-        if(taskById != null){
-            taskById.setLockedBy(task.getLockedBy());
-            taskById.setLockedDate(task.getLockedDate());
-            taskById = commonHelper.updateCommonTaskFields(taskById, task);
-            taskService.saveTask(taskById);
-        }
-        return taskById;
+        return taskService.updateLockTaskById(id, task.getLockedBy());
     }
 
     /**
@@ -134,14 +113,7 @@ public class TaskHelper {
      * below method to update Assign or remove users of Task
      */
     public Task updateAssignOrRemoveUserById(String id, Task task) throws TaskException {
-        Task taskById = taskService.retrieveTaskBydId(id);
-        if(taskById != null){
-            taskById.setAssignedUsers(task.getAssignedUsers());
-            taskById.setAssignedRoles(task.getAssignedRoles());
-            taskById = commonHelper.updateCommonTaskFields(taskById, task);
-            taskService.saveTask(taskById);
-        }
-        return taskById;
+        return taskService.updateUsersTaskById(id, task.getAssignedUsers(), task.getUpdatedBy());
     }
 
     /**
@@ -154,12 +126,7 @@ public class TaskHelper {
      * below method to update Status of Task
      */
     public Task updateStatusById(String id, Task task) throws TaskException {
-        Task taskById = taskService.retrieveTaskBydId(id);
-        if(taskById != null){
-            taskById = commonHelper.updateCommonTaskFields(taskById, task);
-            taskService.saveTask(taskById);
-        }
-        return taskById;
+        return taskService.updateStatusTaskById(id, task.getStatus().name(), task.getUpdatedBy());
     }
 
     /**
@@ -171,13 +138,7 @@ public class TaskHelper {
      *
      * below method to update ActiveStatus of Task
      */
-    public Task updateActiveStatusById(String id, Task task) throws TaskException {
-        Task taskById = taskService.retrieveTaskBydId(id);
-        if(taskById != null){
-            taskById.setActive(task.isActive());
-            taskById = commonHelper.updateCommonTaskFields(taskById, task);
-            taskService.saveTask(taskById);
-        }
-        return taskById;
+    public Task updateIsActiveById(String id, Task task) throws TaskException {
+        return taskService.updateIsActiveTaskById(id, task.isActive(), task.getUpdatedBy());
     }
 }

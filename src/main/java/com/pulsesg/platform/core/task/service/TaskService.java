@@ -11,7 +11,6 @@ import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 /**
@@ -36,25 +35,73 @@ public class TaskService {
     /**
      * @param task Task
      */
-    public void saveTask(Task task) throws TaskException {
+    public void saveTask(Task task) {
         taskRepository.save(task);
     }
 
     /**
      * @param tasks List<Task>
      */
-    public void saveMultipleTasks(List<Task> tasks) throws TaskException {
+    public void saveMultipleTasks(List<Task> tasks) {
         taskRepository.saveAll(tasks);
     }
 
     /**
+     *
      * @param id String
-     * @return
+     * @param approvalComment String
+     * @param updatedBy String
+     * @return Task
+     * @throws TaskException Exception
      */
-    public Task retrieveTaskBydId(String id) throws TaskException {
-        Optional<Task> task = taskRepository.findById(id);
-        return task.isPresent() ? task.get() : null;
+    public Task updateApproveTaskById(String id, String approvalComment, String updatedBy) throws TaskException {
+        return taskRepository.updateTaskSetApprovalCommentForId(id, approvalComment, updatedBy);
     }
 
+    /**
+     *
+     * @param id String
+     * @param users List
+     * @param updatedBy String
+     * @return Task
+     * @throws TaskException  Exception
+     */
+    public Task updateUsersTaskById(String id, List<String> users, String updatedBy) throws TaskException {
+        return taskRepository.updateTaskSetUsersForId(id, users, updatedBy);
+    }
 
+    /**
+     *,
+     * @param id String
+     * @param status String
+     * @param updatedBy String
+     * @return Task
+     * @throws TaskException Exception
+     */
+    public Task updateStatusTaskById(String id, String status, String updatedBy) throws TaskException {
+        return taskRepository.updateTaskSetStatusForId(id, status, updatedBy);
+    }
+
+    /**
+     *
+     * @param id String
+     * @param activeStatus String
+     * @return Task
+     * @param updatedBy String
+     * @throws TaskException Exception
+     */
+    public Task updateIsActiveTaskById(String id, boolean activeStatus, String updatedBy) throws TaskException {
+        return taskRepository.updateTaskSetIsActiveForId(id, activeStatus, updatedBy);
+    }
+
+    /**
+     *
+     * @param id String
+     * @param lockedBy String
+     * @return Task
+     * @throws TaskException Exception
+     */
+    public Task updateLockTaskById(String id, String lockedBy) throws TaskException {
+        return taskRepository.updateTaskSetLockForId(id, lockedBy);
+    }
 }

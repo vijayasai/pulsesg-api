@@ -1,5 +1,7 @@
 package com.pulsesg.platform.core.task.helper;
 
+import com.pulsesg.platform.core.task.model.SubMetric;
+import com.pulsesg.platform.core.task.model.SubMetricResponse;
 import com.pulsesg.platform.core.task.model.Task;
 import com.pulsesg.platform.core.task.model.TaskResponse;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,12 @@ public class ResponseHelper {
     public TaskResponse getTaskResponse(List<Task> taskList){
         TaskResponse resp = new TaskResponse();
         resp.setTaskList(taskList);
+        return resp;
+    }
+
+    public SubMetricResponse getSubMetricResponse(List<SubMetric> subMetricList){
+        SubMetricResponse resp = new SubMetricResponse();
+        resp.setSubMetricList(subMetricList);
         return resp;
     }
 }

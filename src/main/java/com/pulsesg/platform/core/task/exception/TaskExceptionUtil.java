@@ -1,8 +1,13 @@
 package com.pulsesg.platform.core.task.exception;
 
+import com.couchbase.client.core.error.CouchbaseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
+import com.pulsesg.platform.core.task.util.GsonUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +107,8 @@ public class TaskExceptionUtil extends ExceptionUtils {
             HystrixRuntimeException hex = (HystrixRuntimeException) exception;
             TaskErrorInfo taskErrorInfo = generateHystrixRuntimeException(hex);
             throw new TaskException(taskErrorInfo);
+        } else if (exception instanceof CouchbaseException) {
+            throw new TaskException(getTaskErrorProperty(exception));
         } else {
             taskEx = new TaskException(TaskErrorInfo.UNKNOWN_EXCEPTION);
             LOGGER.error("Convert initial exception to unknown exception {}", taskEx.getMessage());
@@ -115,4 +122,64 @@ public class TaskExceptionUtil extends ExceptionUtils {
         }
 
     }
+
+    public static TaskException returnAndLogTaskExceptions(Exception exception) {
+        TaskException taskEx;
+        if (exception instanceof TaskException) {
+            taskEx = (TaskException) exception;
+            LOGGER.error("Rethrow same exception {}", taskEx.getMessage());
+        } else if (exception instanceof HystrixRuntimeException) {
+            LOGGER.error("HystrixRuntimeException ");
+            HystrixRuntimeException hex = (HystrixRuntimeException) exception;
+            TaskErrorInfo taskErrorInfo = generateHystrixRuntimeException(hex);
+            taskEx =  new TaskException(taskErrorInfo);
+        } else if (exception instanceof CouchbaseException) {
+            taskEx =  new TaskException(getTaskErrorProperty(exception));
+
+        } else {
+            taskEx = new TaskException(TaskErrorInfo.UNKNOWN_EXCEPTION);
+            LOGGER.error("Convert initial exception to unknown exception {}", taskEx.getMessage());
+            if (exception.getCause() != null) {
+                LOGGER.error("Cause Exception {}", exception.getCause());
+            }
+            LOGGER.error("Exception {}", exception);
+            taskEx.setBackendCause(exception);
+            taskEx.setAdditionalInfo(exception.getMessage());
+        }
+return taskEx;
+    }
+
+    private static TaskErrorProperty getTaskErrorProperty(Exception exception) {
+        String strEx = ExceptionUtils.getStackTrace(exception);
+        TaskErrorProperty errorProperty = new TaskErrorProperty();
+        int nLast = strEx.lastIndexOf('}');
+        int nFirst = strEx.indexOf("{");
+        if(nLast >-1 && nFirst >-1){
+            strEx = strEx.substring(nFirst, nLast+1);
+            LOGGER.error("CouchbaseException {}", strEx);
+            JsonObject error = GsonUtil.getObjectFromJson(strEx, JsonObject.class);
+            if(error.has("errors")){
+                JsonArray jsonArray = (JsonArray)error.get("errors");
+                for(JsonElement elm:jsonArray){
+                    JsonObject errorJson = elm.getAsJsonObject();
+                    errorProperty.setCode(errorJson.get("code").getAsString());
+                    errorProperty.setMessage(errorJson.get("message").getAsString());
+                }
+            }
+            if(error.has("service")){
+                JsonObject serviceJson =error.get("service").getAsJsonObject();
+                String statement = serviceJson.get("statement").getAsString();
+            }
+        } else {
+            errorProperty.setCode("1000");
+            errorProperty.setMessage(exception.getMessage());
+        }
+        errorProperty.setStatus(500);
+
+        return errorProperty;
+    }
+
+
+
+
 }

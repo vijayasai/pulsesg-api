@@ -12,11 +12,12 @@ import java.util.List;
  * @author Vijayasai Kesanupalli
  */
 @Repository
-public interface TaskRepository extends CouchbaseRepository<Task, String> {
+public interface TaskRepository extends CouchbaseRepository<Task, Object> {
 
     List<Task> findAllByOrgIdLike(String orgId) throws TaskException;
 
-    @Query("UPDATE `generatedata`.`_default`.`_default` data set approval_comment=$2, updatedBy=$3, updatedDate=NOW_MILLIS() where meta().id=$1 RETURNING *")
+    @Query("UPDATE `generatedata1`.`_default`.`_default` data set approval_comment=$2, updatedBy=$3, " +
+            "updatedDate=NOW_MILLIS() where meta().id=$1 RETURNING *")
     Task updateTaskSetApprovalCommentForId(String id, String approvalComment, String updatedBy) throws TaskException;
 
     @Query("UPDATE `generatedata`.`_default`.`_default` data set assignedUsers=$2, updatedBy=$3, updatedDate=NOW_MILLIS() where meta().id=$1 RETURNING *")

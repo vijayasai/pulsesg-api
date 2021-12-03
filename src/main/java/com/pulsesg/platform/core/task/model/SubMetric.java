@@ -34,7 +34,7 @@ public class SubMetric {
     public String _type;
     public String metricid;
     public String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYYMM,d")
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT, pattern = "YYYYMM,d")
     public int cycleId;
     public String orgId;
     public String tenantId;

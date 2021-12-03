@@ -1,5 +1,7 @@
 package com.pulsesg.platform.core.task.exception;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -11,7 +13,9 @@ public enum TaskErrorInfo {
 
     OK(200, "0", "Success"),
     UNKNOWN_EXCEPTION(500, "1000", "Unknown exception occurred."),
-    DEGRADED_MODE(503, "1002", "In Degrade Mode");
+    DEGRADED_MODE(503, "1002", "In Degrade Mode"),
+    SERVICE_NOT_AVAILABLE_EXCEPTION(500, "1005", "OPeration not avalilable"),
+    INVALID_REQUEST_PARAMETER(400, "1200", "Invalid request parm");
 
     private TaskErrorInfo(int statusCode, String errorCode, String errorMessage){
         this.errorCode = errorCode;
@@ -94,5 +98,9 @@ public enum TaskErrorInfo {
 //                '}';
 
         return String.valueOf(statusCode) + "-" + String.valueOf(errorCode) + "-" + String.valueOf(errorMessage);
+    }
+
+    public HttpStatus getHttpStatus(){
+        return HttpStatus.resolve(statusCode);
     }
 }

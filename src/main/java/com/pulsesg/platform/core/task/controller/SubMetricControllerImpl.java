@@ -1,7 +1,7 @@
 package com.pulsesg.platform.core.task.controller;
 
-import com.pulsesg.platform.core.task.exception.SubMetricException;
-import com.pulsesg.platform.core.task.exception.SubMetricExceptionUtil;
+import com.pulsesg.platform.core.task.exception.TaskException;
+import com.pulsesg.platform.core.task.exception.TaskExceptionUtil;
 import com.pulsesg.platform.core.task.helper.ResponseHelper;
 import com.pulsesg.platform.core.task.helper.SubMetricHelper;
 import com.pulsesg.platform.core.task.model.SubMetric;
@@ -31,10 +31,10 @@ public class SubMetricControllerImpl implements SubMetricController {
      * @param auth  AuthToken
      * @param orgId String
      * @return ResponseEntity<SubMetricResponse>
-     * @throws SubMetricException Exception
+     * @throws TaskException Exception
      */
     //@HystrixCommand(commandKey = "taskService-addNewTask", threadPoolKey = "taskService-addNewTask", fallbackMethod = "handleRetrieveTasksListByOrgId")
-    public ResponseEntity<SubMetricResponse> retrieveSubMetricsListByOrgId(String auth, String orgId) throws SubMetricException {
+    public ResponseEntity<SubMetricResponse> retrieveSubMetricsListByOrgId(String auth, String orgId) throws TaskException {
         LOGGER.info(" ** Start of retrieveSubMetricsListByOrgId orgId {}", orgId);
 
         SubMetricResponse resp = new SubMetricResponse();
@@ -43,7 +43,7 @@ public class SubMetricControllerImpl implements SubMetricController {
             resp = responseHelper.getSubMetricResponse(subMetricList);
         } catch (Exception e) {
             LOGGER.error("retrieveSubMetric error: {}", e.getMessage());
-            SubMetricExceptionUtil.throwAndLogSubMetricExceptions(e);
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
         }
         return new ResponseEntity<>(resp, Util.getSuccessResponseHeaders(), HttpStatus.OK);
     }
@@ -52,15 +52,15 @@ public class SubMetricControllerImpl implements SubMetricController {
      * @param auth AuthToken
      * @param subMetric SubMetric
      * @return void
-     * @throws SubMetricException Exception
+     * @throws TaskException Exception
      */
-    public ResponseEntity<Void> createSubMetric(String auth, SubMetric subMetric) throws SubMetricException {
+    public ResponseEntity<Void> createSubMetric(String auth, SubMetric subMetric) throws TaskException {
         LOGGER.info(" ** Start of createSuMetric ");
         try {
             subMetricHelper.createNewSubMetric(subMetric);
         } catch (Exception e) {
             LOGGER.error("createSubMetric error: {}", e.getMessage());
-            SubMetricExceptionUtil.throwAndLogSubMetricExceptions(e);
+            TaskExceptionUtil.throwAndLogTaskExceptions(e);
         }
         return new ResponseEntity<>(Util.getSuccessResponseHeaders(), HttpStatus.OK);
     }

@@ -173,6 +173,11 @@ public class TaskException extends Exception implements Serializable {
         this.setBackendCause(ex);
     }
 
+    public TaskException( Throwable ex) {
+        super(ex);
+        this.setBackendCause(ex);
+    }
+
     public TaskException(TaskErrorProperty taskErrorProperty, String additionalInfo, Throwable ex) {
         super(taskErrorProperty.getCode() + "-" + taskErrorProperty.getMessage() + "-" + additionalInfo);
         this.setTaskErrorProperty(taskErrorProperty);

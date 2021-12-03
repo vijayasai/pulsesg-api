@@ -1,7 +1,8 @@
 package com.pulsesg.platform.core.task.controller;
 
-import com.pulsesg.platform.core.task.exception.SubMetricException;
-import com.pulsesg.platform.core.task.model.*;
+import com.pulsesg.platform.core.task.exception.TaskException;
+import com.pulsesg.platform.core.task.model.SubMetric;
+import com.pulsesg.platform.core.task.model.SubMetricResponse;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public interface SubMetricController {
     })
     @GetMapping("/submetric/search")
     ResponseEntity<SubMetricResponse> retrieveSubMetricsListByOrgId(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
-                                                          @ApiParam("orgId") @RequestParam(name = "orgId") String orgId) throws SubMetricException;
+                                                          @ApiParam("orgId") @RequestParam(name = "orgId") String orgId) throws TaskException;
 
     // CreateSubMetric
 
@@ -41,7 +42,7 @@ public interface SubMetricController {
     })
     @PostMapping("/createSubMetric")
     ResponseEntity<Void>  createSubMetric(@ApiParam("Auth") @RequestHeader("Authorization") String auth,
-                           @ApiParam(value = "SubMetric data", required = true) @RequestBody SubMetric subMetric) throws SubMetricException;
+                           @ApiParam(value = "SubMetric data", required = true) @RequestBody SubMetric subMetric) throws TaskException;
 
 
 
